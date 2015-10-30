@@ -14,8 +14,16 @@
   "require": {
     "php": ">=5.3.2",
     "symfony/framework-bundle": ">=2.0",
-    "tecnickcom/tcpdf": "*"
+    "tecnickcom/tcpdf": "*",
+    "setasign/fpdi-tcpdf": "1.6.0",
+    "setasign/fpdi_pdf-parser": "1.1.2"
   },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://www.setasign.com/downloads/"
+    }
+  ],
   "autoload": {
     "psr-0": { "InterInvest\\TransactionTCPDFBundle": "" }
   },
