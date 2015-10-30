@@ -2,10 +2,14 @@
 
 namespace InterInvest\TransactionTCPDFBundle\Transaction\Action;
 
+use ArrayAccess;
 use Closure;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 
-class ActionCollection
+
+class ActionCollection implements  Countable, IteratorAggregate, ArrayAccess
 {
     /**
      * An array containing the entries of this collection.
