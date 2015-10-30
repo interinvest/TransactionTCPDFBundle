@@ -2,7 +2,7 @@
 
 namespace InterInvest\TransactionTCPDFBundle\Transaction\Action;
 
-use InterInvest\TransactionTCPDFBundle\TCPDFLib;
+use InterInvest\TransactionTCPDFBundle\Lib\TCPDFLib;
 
 class TextOptionsAction extends AbstractAction implements ActionInterface
 {
