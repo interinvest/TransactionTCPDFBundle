@@ -50,7 +50,7 @@ class TransactionTCPDFController
             throw new \LogicException("Class '{$className}' must inherit from TCPDFLib");
         }
 
-        return ;
+        return $tcpdfLib;
     }
 
 }
