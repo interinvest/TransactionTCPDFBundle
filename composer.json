@@ -15,7 +15,7 @@
     "php": ">=5.3.2",
     "symfony/framework-bundle": ">=2.0",
     "tecnickcom/tcpdf": "6.2.*",
-    "setasign/fpdi": "1.6.*",
+    "setasign/fpdi": "1.6.*"
   },
   "conflict": {
     "setasign/fpdf": "1.7.*"
