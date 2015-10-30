@@ -1,0 +1,23 @@
+{
+  "name": "interinvest/transaction-tcpdf-bundle",
+  "type": "symfony-bundle",
+  "description": "A bundle to make TCPDF transaction into Symfony2",
+  "keywords": ["pdf", "tcpdf", "transaction", "FPDI"],
+  "homepage": "https://github.com/interinvest/TransactionTCPDFBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joyd Sousa",
+      "email": "jsousa@inter-invest.fr"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.2",
+    "symfony/framework-bundle": ">=2.0",
+    "tecnickcom/tcpdf": "*"
+  },
+  "autoload": {
+    "psr-0": { "InterInvest\\TransactionTCPDFBundle": "" }
+  },
+  "target-dir": "InterInvest/TransactionTCPDFBundle"
+}
