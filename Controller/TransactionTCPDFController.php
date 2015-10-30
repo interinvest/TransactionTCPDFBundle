@@ -1,10 +1,11 @@
 <?php
-namespace WhiteOctober\TCPDFBundle\Controller;
+namespace InterInvest\TransactionTCPDFBundle\Controller;
 
+use InterInvest\TransactionTCPDFBundle\Lib\TCPDFLib;
 use ReflectionClass;
 use \TCPDF;
 
-class TCPDFController
+class TransactionTCPDFController
 {
     protected $layouts;
     protected $className;
@@ -24,30 +25,32 @@ class TCPDFController
      * Any arguments passed here will be passed directly
      * to the TCPDF class as constructor arguments
      *
+     * @param string $layout
+     *
      * @return TCPDF
+     * @throws \Exception
      */
-    public function create($layout)
+    public function create($layout = null)
     {
-        var_dump($layout);
-        die;
-//        $rc = new ReflectionClass($this->className);
-//
-//        return $rc->newInstanceArgs(func_get_args());
+        if (!$layout) {
+            $layout = \key($this->layouts);
+        }
+
+        if (!isset($this->layouts[$layout])) {
+            throw new \Exception('The layout "'.$layout.'" cannot be found.');
+        }
+
+        $layoutOptions = $this->layouts[$layout];
+        $className = $layoutOptions['class'];
+
+        $rc = new ReflectionClass($className);
+        $tcpdfLib = $rc->newInstanceArgs(func_get_args());
+
+        if (!($tcpdfLib instanceof TCPDFLib)) {
+            throw new \LogicException("Class '{$className}' must inherit from TCPDFLib");
+        }
+
+        return ;
     }
 
-    /**
-     * Sets the class name to use for instantiation
-     *
-     * @param $className
-     *
-     * @throws \LogicException if the class is not, or does not inherit from, TCPDF
-     */
-    public function setClassName($className)
-    {
-//        $rc = new ReflectionClass($className);
-//        if (!$rc->isSubclassOf('TCPDF') && $rc->getName() != 'TCPDF') {
-//            throw new \LogicException("Class '{$className}' must inherit from TCPDF");
-//        }
-//        $this->className = $className;
-    }
 }
