@@ -6,6 +6,7 @@ use InterInvest\TransactionTCPDFBundle\Transaction\ElementInterface;
 use InterInvest\TransactionTCPDFBundle\Transaction\Transaction;
 use InterInvest\TransactionTCPDFBundle\Transaction\Action;
 use FPDI;
+use Symfony\Component\VarDumper\VarDumper;
 
 class TCPDFLib extends FPDI
 {
@@ -116,9 +117,11 @@ class TCPDFLib extends FPDI
             ),
         );
 
-        return $this->transaction()
-            ->add('table', $table)
-            ;
+        $transaction = new Transaction($this);
+        $transaction->setOption('break', false);
+        $transaction->add('table', $table);
+
+        return $transaction;
     }
 
     /**
@@ -148,6 +151,8 @@ class TCPDFLib extends FPDI
     {
         $page = $this->getNumPages();
         $this->setPageBreakTrigger($this->footerOffset);
+
+//        VarDumper::dump($transaction);
 
         if ($transaction->getOption('break')) {
             $this->startTransaction();

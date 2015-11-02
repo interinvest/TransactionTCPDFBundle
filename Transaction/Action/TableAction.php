@@ -76,7 +76,7 @@ class TableAction extends HtmlAction implements ActionInterface
             $rowStyles = isset($row['styles']) ? $row['styles'] : null;
             $cols = isset($row['cols']) ? $row['cols'] : $row;
 
-            $this->html .= '<tr>';
+            $this->html .= '<tr nobr="true">';
             foreach ($cols as $col) {
                 $colStyles = isset($col['styles']) ? $col['styles'] : null;
                 $value = isset($col['value']) ? $col['value'] : $col;
