@@ -6,15 +6,16 @@ use InterInvest\TransactionTCPDFBundle\Transaction\ElementInterface;
 use InterInvest\TransactionTCPDFBundle\Transaction\Transaction;
 use InterInvest\TransactionTCPDFBundle\Transaction\Action;
 use FPDI;
-use Symfony\Component\VarDumper\VarDumper;
 
 class TCPDFLib extends FPDI
 {
     protected $footerTransaction = null;
     protected $footerPrintLine = false;
-    protected $footerOffset = 30;
+    public $footerOffset = 30;
     protected $rollbackSave = null;
     public $printFooter = true;
+
+    public $footerPrinted = array();
 
     public $tableStyles = array();
     public $tableHeadStyles = array();
@@ -24,6 +25,7 @@ class TCPDFLib extends FPDI
     protected function init()
     {
         $this->header_line_color = array(255, 255, 255);
+        $this->bMargin = $this->footerOffset;
     }
 
     /**
@@ -35,33 +37,9 @@ class TCPDFLib extends FPDI
     public function Footer()
     {
         $this->SetY($this->GetY() - $this->footerOffset);
-        $cur_y = $this->y;
-        $this->SetTextColorArray($this->footer_text_color);
-        //set style for cell border
-        $line_width = (0.85 / $this->k);
-        if ($this->footerPrintLine) {
-            $this->SetLineStyle(array('width' => $line_width, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => $this->footer_line_color));
-        }
-        //print document barcode
-        $barcode = $this->getBarcode();
-        if (!empty($barcode)) {
-            $this->Ln($line_width);
-            $style = array(
-                'position'     => $this->rtl ? 'R' : 'L',
-                'align'        => $this->rtl ? 'R' : 'L',
-                'stretch'      => false,
-                'fitwidth'     => true,
-                'cellfitalign' => '',
-                'border'       => false,
-                'padding'      => 0,
-                'fgcolor'      => array(0, 0, 0),
-                'bgcolor'      => false,
-                'text'         => false
-            );
-            $this->write1DBarcode($barcode, 'C128', '', $cur_y + $line_width, '', (($this->footer_margin / 3) - $line_width), 0.3, $style, '');
-        }
-        if ($this->footerTransaction instanceof Transaction && $this->printFooter) {
+        if ($this->footerTransaction instanceof Transaction && $this->printFooter && !isset($this->footerPrinted[$this->getPage()])) {
             $this->execute($this->footerTransaction);
+            $this->footerPrinted[$this->getPage()] = true;
         }
     }
 
@@ -133,14 +111,6 @@ class TCPDFLib extends FPDI
     }
 
     /**
-     * @param $offset
-     */
-    public function setPageBreakTrigger($offset)
-    {
-        $this->PageBreakTrigger = $this->h - $offset;
-    }
-
-    /**
      * Execute la transaction $transaction
      *
      * @param Transaction $transaction
@@ -150,9 +120,6 @@ class TCPDFLib extends FPDI
     public function execute(Transaction $transaction)
     {
         $page = $this->getNumPages();
-        $this->setPageBreakTrigger($this->footerOffset);
-
-//        VarDumper::dump($transaction);
 
         if ($transaction->getOption('break')) {
             $this->startTransaction();

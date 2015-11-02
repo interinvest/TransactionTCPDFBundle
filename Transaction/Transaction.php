@@ -20,6 +20,8 @@ class Transaction implements TransactionInterface
     protected $actions;
     protected $options;
 
+    private $inited = false;
+
     public function __construct(TCPDFLib $pdf = null)
     {
         $this->actions = New Action\ActionCollection();
@@ -87,7 +89,10 @@ class Transaction implements TransactionInterface
      */
     public function execute(TCPDFLib $pdf = null)
     {
-        $this->init();
+        if (!$this->inited) {
+            $this->init();
+            $this->inited = true;
+        }
 
         if (!$pdf) {
             $pdf = $this->pdf;
