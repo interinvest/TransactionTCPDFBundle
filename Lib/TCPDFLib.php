@@ -9,7 +9,7 @@ use FPDI;
 
 class TCPDFLib extends FPDI
 {
-    protected $footerTransaction = null;
+    public $footerTransaction = null;
     protected $footerPrintLine = false;
     public $footerOffset = 30;
     protected $rollbackSave = null;
