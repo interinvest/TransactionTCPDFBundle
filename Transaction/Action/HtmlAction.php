@@ -19,7 +19,7 @@ class HtmlAction extends AbstractAction implements ActionInterface
         $fillColor = isset($this->options['fillColor']) ? $this->options['fillColor'] : null;
         $borderColor = isset($this->options['borderColor']) ? $this->options['borderColor'] : null;
         $reseth = isset($this->options['reseth']) ? $this->options['reseth'] : true;
-        $align = isset($this->options['align']) ? $this->options['align'] : '';
+        $align = isset($this->options['align']) ? $this->options['align'] : 'J';
         $autopadding = isset($this->options['autopadding']) ? $this->options['autopadding'] : true;
         $valign = isset($this->options['valign']) ? $this->options['valign'] : 'T';
         $isHtml = isset($this->options['isHtml']) ? $this->options['isHtml'] : true;
