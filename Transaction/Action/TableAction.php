@@ -12,7 +12,7 @@ class TableAction extends HtmlAction implements ActionInterface
     {
         $this->html .= '<td';
 
-        $options = array('rowspan', 'colspan', 'align', 'valign');
+        $options = array('rowspan', 'colspan', 'align', 'valign', 'width');
         foreach ($options as $option) {
             if (isset($colStyles[$option])) {
                 $this->html .= ' ' . $option . '="' . $colStyles[$option] . '"';
