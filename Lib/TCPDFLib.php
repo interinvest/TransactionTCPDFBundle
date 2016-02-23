@@ -126,6 +126,9 @@ class TCPDFLib extends FPDI
         }
         foreach ($transaction->getActions() as $element) {
             if ($element instanceof ElementInterface) {
+                if ($transaction->getOption('break')) {
+                    $element->setOption('break', false);
+                }
                 $element->execute($this);
             }
         }
