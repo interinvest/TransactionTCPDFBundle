@@ -18,7 +18,7 @@ class QRcodeTransaction extends Transaction implements TransactionInterface
 
         $this
             ->add('qRcode', array('qrcode' => $qrcode, 'y' => $y, 'x' => $x, 'h' => $h, 'w' => $w))
-            ->add('textOptions', array('color' => $textColor, 'size' => 6))
+            ->add('textOptions', array('color' => $textColor, 'size' => 5))
             ->add('html', array('html' => $qrcode, 'y' => $y + $h, 'x' => $x))
         ;
     }
