@@ -26,7 +26,7 @@ class ImportPdfAction extends AbstractAction implements ActionInterface
         $pdf->SetAutoPageBreak(false);
         for ($i = 1; $i <= $nbPage; $i++) {
             $tplIdx = $pdf->importPage($i);
-            $pdf->AddPage($orientation);
+            $pdf->AddPage(is_array($orientation) ? (isset($orientation[$i]) ? $orientation[$i] : 'P') : $orientation);
             if (!$keepFooter) {
                 $pdf->footerTransaction = null;
             }
