@@ -36,7 +36,7 @@ class TableAction extends HtmlAction implements ActionInterface
                 }
             }
         }
-        $styles = array('border', 'background-color', 'height', 'line-height');
+        $styles = array('border', 'background-color', 'height', 'line-height', 'border-bottom', 'border-top', 'border-bottom', 'border-left', 'border-right');
         foreach ($styles as $style) {
             if (isset($colStyles[$style])) {
                 $this->html .= ' ' . $style . ': ' . $colStyles[$style] . ';';
